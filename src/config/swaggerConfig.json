@@ -1,0 +1,112 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "NARA API",
+    "version": "1.0.0",
+    "description": "Documentação da API para gerenciar conversas e mensagens no NARA-BOT"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "LOCAL"
+    },
+    {
+      "url": "http://192.168.15.250:3000/api",
+      "description": "DEV"
+    }
+  ],
+  "paths": {
+    "/messages/incoming": {
+      "post": {
+        "summary": "Recebe uma nova mensagem",
+        "description": "Esta rota recebe mensagens enviadas ao NARA-BOT para processamento.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "description": "Número de telefone do usuário que enviou a mensagem"
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Conteúdo da mensagem enviada"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Tipo da mensagem, como texto, áudio ou imagem"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Data e hora em que a mensagem foi enviada"
+                  }
+                },
+                "required": [
+                  "userId",
+                  "body",
+                  "type",
+                  "timestamp"
+                ]
+              },
+              "example": {
+                "userId": "17996053856",
+                "body": "Olá",
+                "type": "text",
+                "timestamp": "2024-11-18T14:00:00Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mensagem recebida com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "Tipo da mensagem de resposta"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "Conteúdo da mensagem de resposta"
+                    }
+                  }
+                },
+                "example": {
+                  "type": "text",
+                  "content": "Bem-vindo! Escolha uma opção:\n1. Cadastrar TAG\n2. Contatos úteis"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição do erro ocorrido"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Parâmetros inválidos na requisição"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

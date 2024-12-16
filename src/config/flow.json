@@ -1,0 +1,283 @@
+{
+    "version": "1.0.0",
+    "description": "Configura o fluxo de conversa do NARA-BOT",
+    "flow": {
+        "sessions": {
+            "greetings": {
+                "stateName": "greetings",
+                "steps": {
+                    "start": {
+                        "expectedInput": [
+                            "oi",
+                            "ola",
+                            "olá",
+                            "opa",
+                            "e aí",
+                            "alô",
+                            "bom",
+                            "dia",
+                            "boa",
+                            "tarde",
+                            "noite",
+                            "tudo",
+                            "bem",
+                            "como",
+                            "vai",
+                            "oi nara",
+                            "assistente",
+                            "bot",
+                            "hey",
+                            "nara",
+                            "aí",
+                            "oi,",
+                            "olá,",
+                            "vc,",
+                            "você"
+                        ],
+                        "inputError": null,
+                        "content": [
+                            {
+                                "input": null,
+                                "type": "chat",
+                                "success": [
+                                    "*🏢 Olá, seja bem-vindo(a)! ✨*\nEu sou a NARA, sua Assistente Residencial Virtual. Estou aqui para ajudar você no que precisar no condomínio. 😊",
+                                    "Por aqui é bem simples! Responda com o número da opção desejada e eu cuido do resto.\nSe quiser encerrar a conversa, basta digitar *FIM* a qualquer momento.",
+                                    "*Vamos começar? Escolha uma das opções abaixo:*\n\n0️⃣ - Sobre a NARA\n1️⃣ - Ativar TAG veicular\n2️⃣ - Telefones úteis"
+                                ],
+                                "error": [],
+                                "successState": "main.start",
+                                "errorState": null
+                            }
+                        ]
+                    }
+                }
+            },
+            "main": {
+                "stateName": "main",
+                "steps": {
+                    "start": {
+                        "expectedInput": [
+                            "0",
+                            "1",
+                            "2"
+                        ],
+                        "inputError": "⚠️ Desculpe, essa opção não existe.\nPor favor, digite o número correto.",
+                        "content": [
+                            {
+                                "input": "0",
+                                "type": "chat",
+                                "success": [
+                                    "😊 Olá! Eu sou a *NARA*, sua Assistente Residencial Virtual.",
+                                    "Fui criada para facilitar o dia a dia no condomínio, ajudando em tarefas como:\n\n 🚗 *Cadastro de TAGs veiculares*\n📦 *Gestão de encomendas*\n👥 *Liberação de visitantes*\n🍖 *Ligação dos exaustores da churrasqueira*",
+                                    "👨‍💻 Meu desenvolvimento foi realizado pelo *Flávio Tapparo*, atual subsíndico e especialista em tecnologia, com o objetivo de oferecer soluções modernas e eficientes para todos os moradores.",
+                                    "Além do subsíndico, tenho todo o suporte das síndicas *Isabela* e *Patrícia*, da *ARBOR*, e do apoio das empresas *BRCondos* e *Life Services*.",
+                                    "💰 Ah, e uma boa notícia: não houve custos adicionais para o condomínio no meu desenvolvimento! Também não há custos operacionais, pois estou fisicamente instalada dentro do condomínio, no nosso servidor. 🥳",
+                                    "🔒 Para garantir a sua segurança, tomei todos os cuidados para atender exclusivamente às demandas do condomínio. Foi por isso que solicitamos o recadastramento de moradores, seguindo rigorosamente as diretrizes da *LGPD*.",
+                                    "Se tiver mais curiosidades ou sugestões, é só entrar em contato com a administração. Estou sempre aprendendo e evoluindo para atender você ainda melhor! 😊"
+                                ],
+                                "error": [],
+                                "successState": "finish",
+                                "errorState": null
+                            },
+                            {
+                                "input": "1",
+                                "type": "chat",
+                                "success": [
+                                    "🚗 Vamos iniciar o cadastro! Tenha sua TAG em mãos e esteja próximo ao veículo, pois vou pedir algumas informações.",
+                                    "🔑 Por favor, digite o CPF que será vinculado à TAG.\n_(somente números)_"
+                                ],
+                                "error": [],
+                                "successState": "tag.start",
+                                "errorState": null
+                            },
+                            {
+                                "input": "2",
+                                "type": "chat",
+                                "success": [
+                                    "📞 *Aqui está a nossa lista de contatos úteis para facilitar sua vida no condomínio:*",
+                                    "🏢 *Administradora - BRCondos*: 17 4009-1718",
+                                    "👩‍💼 *Síndicas - Arbor*: 17 99253-8226",
+                                    "👷‍♂️ *Zelador*: 17 99117-7496",
+                                    "🔒 *Portaria*: 17 99785-1690",
+                                    "💡 *CPFL*: 0800 010 1010",
+                                    "🚰 *Semae*: 0800 770 6666",
+                                    "🔥 *Copagaz*: 11 5163-3900",
+                                    "😊 Obrigado pela paciência. Se precisar novamente, é só me chamar aqui. Até logo!"
+                                ],
+                                "error": [],
+                                "successState": "finish",
+                                "errorState": null
+                            }
+                        ]
+                    }
+                }
+            },
+            "tag": {
+                "stateName": "tag",
+                "steps": {
+                    "start": {
+                        "expectedInput": null,
+                        "inputError": "⚠️ Desculpe, o CPF parece estar incorreto.\nPor favor, informe novamente.",
+                        "content": [
+                            {
+                                "input": null,
+                                "type": "chat",
+                                "success": [
+                                    "✅ Ótimo, encontrei o CPF no sistema! O registro está associado a:\n\n*Nome:* $1\n*Apto:* $2\n*Torre:* $3",
+                                    "Essas informações estão corretas?\n\n1️⃣ - Sim\n2️⃣ - Não"
+                                ],
+                                "error": [
+                                    "❌ Não localizei esse CPF no sistema do condomínio.",
+                                    "🔑 Por favor, digite o CPF que será vinculado à TAG.\n_(somente números)_"
+                                ],
+                                "successState": "tag.confirmCPF",
+                                "errorState": null
+                            }
+                        ]
+                    },
+                    "confirmCPF": {
+                        "expectedInput": [
+                            "1",
+                            "2"
+                        ],
+                        "inputError": "⚠️ Essa opção não existe.\nPor favor, digite o número correto.",
+                        "content": [
+                            {
+                                "input": "1",
+                                "type": "chat",
+                                "success": [
+                                    "🎫 Informe os 10 números que estão impressos na TAG que você recebeu."
+                                ],
+                                "error": [],
+                                "successState": "tag.inputTAG",
+                                "errorState": null
+                            },
+                            {
+                                "input": "2",
+                                "type": "chat",
+                                "success": [
+                                    "😊 Tudo bem, vamos começar novamente.",
+                                    "🔑 Digite o CPF que será vinculado à TAG.\n_(somente números)_"
+                                ],
+                                "error": [],
+                                "successState": "tag.start",
+                                "errorState": null
+                            }
+                        ]
+                    },
+                    "inputTAG": {
+                        "expectedInput": null,
+                        "inputError": "⚠️ Parece que o número da TAG está incorreto.\nPor favor, informe novamente.",
+                        "content": [
+                            {
+                                "input": null,
+                                "type": "chat",
+                                "success": [
+                                    "📸 Vou precisar de uma foto da TAG já instalada no seu carro. É só seguir o exemplo abaixo.",
+                                    "$C:\\NARA\\images\\assets\\tag.jpeg"
+                                ],
+                                "error": [
+                                    "❌ Essa TAG já está ativada no sistema.",
+                                    "🎫 Informe os 10 números que estão impressos na TAG que você recebeu."
+                                ],
+                                "successState": "tag.uploadPhotoTAG",
+                                "errorState": null
+                            }
+                        ]
+                    },
+                    "uploadPhotoTAG": {
+                        "expectedInput": null,
+                        "inputError": "⚠️ Não consegui acessar a foto enviada.\nPor favor, envie novamente.",
+                        "content": [
+                            {
+                                "input": null,
+                                "type": "chat",
+                                "success": [
+                                    "🚘 Agora, por favor, envie uma foto da frente do veículo, incluindo a placa.",
+                                    "$C:\\NARA\\images\\assets\\vehicle.jpeg"
+                                ],
+                                "error": [],
+                                "successState": "tag.uploadPhotoVehicle",
+                                "errorState": null
+                            }
+                        ]
+                    },
+                    "uploadPhotoVehicle": {
+                        "expectedInput": null,
+                        "inputError": "⚠️ Não consegui acessar a foto enviada.\nPor favor, envie novamente.",
+                        "content": [
+                            {
+                                "input": null,
+                                "type": "chat",
+                                "success": [
+                                    "🔠 Ótimo! Identifiquei a placa do veículo. Vou consultar as informações para você, aguarde um instante."
+                                ],
+                                "error": [
+                                    "😕 Não consegui identificar a placa do veículo na foto enviada.",
+                                    "Por favor, envie novamente uma foto da frente do veículo, incluindo a placa."
+                                ],
+                                "successState": "tag.processingData",
+                                "errorState": null
+                            }
+                        ]
+                    },
+                    "processingData": {
+                        "expectedInput": null,
+                        "inputError": "⚠️ Parece que houve um problema com a placa informada.\nPor favor, revise as informações.",
+                        "content": [
+                            {
+                                "input": null,
+                                "type": "chat",
+                                "success": [
+                                    "❓ Confirme os dados antes de finalizar:\n\n🔑 CPF: $1\n👤 Nome: $2\n🚪 Apartamento: $3\n🏢 Torre: $4\n🎫 TAG: $5\n🚘 Placa: $6\n🔖 Marca: $7\n📌 Modelo: $8\n🎨 Cor: $9",
+                                    "Essas informações estão corretas?\n\n1️⃣ - Sim\n2️⃣ - Não"
+                                ],
+                                "error": [
+                                    "❌ Essa placa já possui um TAG registrado no sistema.",
+                                    "Por favor, envie novamente uma foto da frente do veículo, incluindo a placa."
+                                ],
+                                "successState": "tag.confirmData",
+                                "errorState": "tag.uploadPhotoVehicle"
+                            }
+                        ]
+                    },
+                    "confirmData": {
+                        "expectedInput": [
+                            "1",
+                            "2"
+                        ],
+                        "inputError": "⚠️ Essa opção não existe.\nPor favor, digite o número correto.",
+                        "content": [
+                            {
+                                "input": "1",
+                                "type": "chat",
+                                "success": [
+                                    "✅ Tudo certo! O processo foi concluído com sucesso. Sua TAG será ativada em até 2 horas.",
+                                    "😊 Obrigado pela paciência. Se precisar novamente, é só me chamar aqui. Até logo!"
+                                ],
+                                "error": [],
+                                "successState": "finish",
+                                "errorState": null
+                            },
+                            {
+                                "input": "2",
+                                "type": "chat",
+                                "success": [
+                                    "😊 Certo, vamos começar novamente com calma.",
+                                    "🔑 Digite o CPF que será vinculado à TAG.\n_(somente números)_"
+                                ],
+                                "error": [],
+                                "successState": "tag.start",
+                                "errorState": null
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "flowError": [
+            "⚠️ Desculpe! Estamos enfrentando instabilidades no sistema no momento.",
+            "Peço desculpas pelo transtorno e sugiro que tente novamente mais tarde. Estamos trabalhando para resolver o problema o mais rápido possível."
+        ]
+    }
+}
